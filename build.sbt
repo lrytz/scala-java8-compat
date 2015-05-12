@@ -2,9 +2,9 @@ import com.typesafe.tools.mima.plugin.{MimaPlugin, MimaKeys}
 
 scalaModuleSettings
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.6"
 
-snapshotScalaBinaryVersion := "2.11.5"
+snapshotScalaBinaryVersion := "2.11.6"
 
 organization := "org.scala-lang.modules"
 
