@@ -16,25 +16,25 @@ import Stepper._
 private[java8] class StepsAnyHashTableKey[K](_underlying: Array[AnyRef], _i0: Int, _iN: Int)
 extends StepsLikeGapped[K, StepsAnyHashTableKey[K]](_underlying, _i0, _iN) {
   def next() = if (currentEntry eq null) throwNSEE else { val ans = CollectionInternals.hashEntryKey[K](currentEntry); currentEntry = CollectionInternals.hashEntryNext(currentEntry); ans }
-  def semiclone(half: Int) = new StepsAnyHashTableKey[K](underlying, i0, half)
+  protected def semiclone(half: Int) = new StepsAnyHashTableKey[K](underlying, i0, half)
 }
 
 private[java8] class StepsDoubleHashTableKey(_underlying: Array[AnyRef], _i0: Int, _iN: Int)
 extends StepsDoubleLikeGapped[StepsDoubleHashTableKey](_underlying, _i0, _iN) {
   def nextDouble() = if (currentEntry eq null) throwNSEE else { val ans = CollectionInternals.hashEntryKey[Double](currentEntry); currentEntry = CollectionInternals.hashEntryNext(currentEntry); ans }
-  def semiclone(half: Int) = new StepsDoubleHashTableKey(underlying, i0, half)
+  protected def semiclone(half: Int) = new StepsDoubleHashTableKey(underlying, i0, half)
 }
 
 private[java8] class StepsIntHashTableKey(_underlying: Array[AnyRef], _i0: Int, _iN: Int)
 extends StepsIntLikeGapped[StepsIntHashTableKey](_underlying, _i0, _iN) {
   def nextInt() = if (currentEntry eq null) throwNSEE else { val ans = CollectionInternals.hashEntryKey[Int](currentEntry); currentEntry = CollectionInternals.hashEntryNext(currentEntry); ans }
-  def semiclone(half: Int) = new StepsIntHashTableKey(underlying, i0, half)
+  protected def semiclone(half: Int) = new StepsIntHashTableKey(underlying, i0, half)
 }
 
 private[java8] class StepsLongHashTableKey(_underlying: Array[AnyRef], _i0: Int, _iN: Int)
 extends StepsLongLikeGapped[StepsLongHashTableKey](_underlying, _i0, _iN) {
   def nextLong() = if (currentEntry eq null) throwNSEE else { val ans = CollectionInternals.hashEntryKey[Long](currentEntry); currentEntry = CollectionInternals.hashEntryNext(currentEntry); ans }
-  def semiclone(half: Int) = new StepsLongHashTableKey(underlying, i0, half)
+  protected def semiclone(half: Int) = new StepsLongHashTableKey(underlying, i0, half)
 }
 
 // Steppers for entries stored in DefaultEntry HashEntry
@@ -45,7 +45,7 @@ extends StepsLikeGapped[(K, V), StepsAnyDefaultHashTable[K, V]](_underlying, _i0
   def next() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); (CollectionInternals.hashEntryKey[K](e), CollectionInternals.defaultEntryValue[V](e)) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsAnyDefaultHashTable[K, V](underlying, i0, half)
 }
 
@@ -54,7 +54,7 @@ extends StepsLikeGapped[V, StepsAnyDefaultHashTableValue[K, V]](_underlying, _i0
   def next() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.defaultEntryValue[V](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsAnyDefaultHashTableValue[K, V](underlying, i0, half)
 }
 
@@ -63,7 +63,7 @@ extends StepsDoubleLikeGapped[StepsDoubleDefaultHashTableValue[K]](_underlying, 
   def nextDouble() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.defaultEntryValue[Double](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsDoubleDefaultHashTableValue[K](underlying, i0, half)
 }
 
@@ -72,7 +72,7 @@ extends StepsIntLikeGapped[StepsIntDefaultHashTableValue[K]](_underlying, _i0, _
   def nextInt() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.defaultEntryValue[Int](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsIntDefaultHashTableValue[K](underlying, i0, half)
 }
 
@@ -81,7 +81,7 @@ extends StepsLongLikeGapped[StepsLongDefaultHashTableValue[K]](_underlying, _i0,
   def nextLong() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.defaultEntryValue[Long](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsLongDefaultHashTableValue[K](underlying, i0, half)
 }
 
@@ -93,7 +93,7 @@ extends StepsLikeGapped[(K, V), StepsAnyLinkedHashTable[K, V]](_underlying, _i0,
   def next() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); (CollectionInternals.hashEntryKey[K](e), CollectionInternals.linkedEntryValue[V](e)) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsAnyLinkedHashTable[K, V](underlying, i0, half)
 }
 
@@ -102,7 +102,7 @@ extends StepsLikeGapped[V, StepsAnyLinkedHashTableValue[K, V]](_underlying, _i0,
   def next() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.linkedEntryValue[V](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsAnyLinkedHashTableValue[K, V](underlying, i0, half)
 }
 
@@ -111,7 +111,7 @@ extends StepsDoubleLikeGapped[StepsDoubleLinkedHashTableValue[K]](_underlying, _
   def nextDouble() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.linkedEntryValue[Double](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsDoubleLinkedHashTableValue[K](underlying, i0, half)
 }
 
@@ -120,7 +120,7 @@ extends StepsIntLikeGapped[StepsIntLinkedHashTableValue[K]](_underlying, _i0, _i
   def nextInt() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.linkedEntryValue[Int](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsIntLinkedHashTableValue[K](underlying, i0, half)
 }
 
@@ -129,7 +129,7 @@ extends StepsLongLikeGapped[StepsLongLinkedHashTableValue[K]](_underlying, _i0, 
   def nextLong() = 
     if (currentEntry eq null) throwNSEE
     else { val e = currentEntry; currentEntry = CollectionInternals.hashEntryNext(e); CollectionInternals.linkedEntryValue[Long](e) }
-  def semiclone(half: Int) =
+  protected def semiclone(half: Int) =
     new StepsLongLinkedHashTableValue[K](underlying, i0, half)
 }
 
