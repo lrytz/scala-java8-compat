@@ -58,7 +58,7 @@ private[java8] class StepsAnyVector[A](underlying: Vector[A], _i0: Int, _iN: Int
 extends StepsLikeIndexed[A, StepsAnyVector[A]](_i0, _iN) 
 with StepsVectorLike[A] {
   protected def myVector = underlying
-  def next() = if (hasNext()) {
+  def next() = if (hasNext) {
     index += 1
     if (index >= 32) advanceData(i0)
     i0 += 1
@@ -77,7 +77,7 @@ private[java8] class StepsDoubleVector(underlying: Vector[Double], _i0: Int, _iN
 extends StepsDoubleLikeIndexed[StepsDoubleVector](_i0, _iN)
 with StepsVectorLike[Double] {
   protected def myVector = underlying
-  def nextDouble() = if (hasNext()) {
+  def nextDouble() = if (hasNext) {
     index += 1
     if (index >= 32) advanceData(i0)
     i0 += 1
@@ -96,7 +96,7 @@ private[java8] class StepsIntVector(underlying: Vector[Int], _i0: Int, _iN: Int)
 extends StepsIntLikeIndexed[StepsIntVector](_i0, _iN)
 with StepsVectorLike[Int] {
   protected def myVector = underlying
-  def nextInt() = if (hasNext()) {
+  def nextInt() = if (hasNext) {
     index += 1
     if (index >= 32) advanceData(i0)
     i0 += 1
@@ -115,7 +115,7 @@ private[java8] class StepsLongVector(underlying: Vector[Long], _i0: Int, _iN: In
 extends StepsLongLikeIndexed[StepsLongVector](_i0, _iN)
 with StepsVectorLike[Long] {
   protected def myVector = underlying
-  def nextLong() = if (hasNext()) {
+  def nextLong() = if (hasNext) {
     index += 1
     if (index >= 32) advanceData(i0)
     i0 += 1
