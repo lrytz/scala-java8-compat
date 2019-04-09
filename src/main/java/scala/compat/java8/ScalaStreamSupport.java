@@ -45,72 +45,6 @@ public class ScalaStreamSupport {
     }
 
     /** 
-     * Generates a Stream that traverses a scala.collection.immutable.HashSet.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The immutable.HashSet to traverse
-     * @return     A Stream view of the collection which, by default, executes sequentially.
-     */
-    public static <T> Stream<T> stream(scala.collection.immutable.HashSet<T> coll) {
-        return StreamSupport.stream(new StepsAnyImmHashSet<T>(coll.iterator(), coll.size()), false);
-    }
-
-    /** 
-     * Generates a Stream that traverses the keys of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A Stream view of the collection which, by default, executes sequentially.
-     */
-    public static <K> Stream<K> streamKeys(scala.collection.mutable.HashMap<K, ?> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.stream(new StepsAnyHashTableKey(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a Stream that traverses the values of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A Stream view of the collection which, by default, executes sequentially.
-     */
-    public static <V> Stream<V> streamValues(scala.collection.mutable.HashMap<? super Object, V> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.stream(new StepsAnyDefaultHashTableValue(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a Stream that traverses the key-value pairs of a scala.collection.mutable.HashMap.
-     * The key-value pairs are presented as instances of scala.Tuple2.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A Stream view of the collection which, by default, executes sequentially.
-     */
-    public static <K, V> Stream< scala.Tuple2<K, V> > stream(scala.collection.mutable.HashMap<K, V> coll) {
-        Object[] tbl =
-            CollectionInternals.getTable(coll);
-        return StreamSupport.stream(new StepsAnyDefaultHashTable<K, V>(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a Stream that traverses a scala.collection.mutable.HashSet.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashSet to traverse
-     * @return     A Stream view of the collection which, by default, executes sequentially.
-     */
-    public static <T> Stream<T> stream(scala.collection.mutable.HashSet<T> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.stream(new StepsAnyFlatHashTable<T>(tbl, 0, tbl.length), false);
-    }
-
-    /** 
      * Generates a Stream that traverses a scala.collection.immutable.Vector.
      * <p>
      * Both sequential and parallel operations will be efficient.
@@ -248,58 +182,6 @@ public class ScalaStreamSupport {
      */
     public static DoubleStream doubleStream(scala.collection.IndexedSeq<Double> coll) {
         return StreamSupport.doubleStream(new StepsDoubleIndexedSeq(coll, 0, coll.length()), false);
-    }
-
-    /** 
-     * Generates a DoubleStream that traverses a scala.collection.immutable.HashSet of Doubles.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The immutable.HashSet to traverse
-     * @return     A DoubleStream view of the collection which, by default, executes sequentially.
-     */
-    public static DoubleStream doubleStream(scala.collection.immutable.HashSet<Double> coll) {
-        scala.collection.Iterator iter = (scala.collection.Iterator)coll.iterator();
-        return StreamSupport.doubleStream(new StepsDoubleImmHashSet(iter, coll.size()), false);
-    }
-
-    /** 
-     * Generates a DoubleStream that traverses double-valued keys of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A DoubleStream view of the collection which, by default, executes sequentially.
-     */
-    public static DoubleStream doubleStreamKeys(scala.collection.mutable.HashMap<Double, ?> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.doubleStream(new StepsDoubleHashTableKey(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a DoubleStream that traverses double-valued values of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A DoubleStream view of the collection which, by default, executes sequentially.
-     */
-    public static DoubleStream doubleStreamValues(scala.collection.mutable.HashMap<? super Object, Double> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.doubleStream(new StepsDoubleDefaultHashTableValue(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a DoubleStream that traverses a scala.collection.mutable.HashSet of Doubles.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashSet to traverse
-     * @return     A DoubleStream view of the collection which, by default, executes sequentially.
-     */
-    public static DoubleStream doubleStream(scala.collection.mutable.HashSet<Double> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.doubleStream(new StepsDoubleFlatHashTable(tbl, 0, tbl.length), false);
     }
 
     /** 
@@ -463,58 +345,6 @@ public class ScalaStreamSupport {
     }
 
     /** 
-     * Generates a IntStream that traverses a scala.collection.immutable.HashSet of Ints.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The immutable.HashSet to traverse
-     * @return     A IntStream view of the collection which, by default, executes sequentially.
-     */
-    public static IntStream intStream(scala.collection.immutable.HashSet<Integer> coll) {
-        scala.collection.Iterator iter = (scala.collection.Iterator)coll.iterator();
-        return StreamSupport.intStream(new StepsIntImmHashSet(iter, coll.size()), false);
-    }
-
-    /** 
-     * Generates a IntStream that traverses int-valued keys of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A IntStream view of the collection which, by default, executes sequentially.
-     */
-    public static IntStream intStreamKeys(scala.collection.mutable.HashMap<Integer, ?> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.intStream(new StepsIntHashTableKey(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a IntStream that traverses int-valued values of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A IntStream view of the collection which, by default, executes sequentially.
-     */
-    public static IntStream intStreamValues(scala.collection.mutable.HashMap<? super Object, Integer> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.intStream(new StepsIntDefaultHashTableValue(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a IntStream that traverses a scala.collection.mutable.HashSet of Ints.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashSet to traverse
-     * @return     A IntStream view of the collection which, by default, executes sequentially.
-     */
-    public static IntStream intStream(scala.collection.mutable.HashSet<Integer> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.intStream(new StepsIntFlatHashTable(tbl, 0, tbl.length), false);
-    }
-
-    /** 
      * Generates a IntStream that traverses a scala.collection.immutable.Vector of Ints.
      * <p>
      * Both sequential and parallel operations will be efficient.
@@ -645,58 +475,6 @@ public class ScalaStreamSupport {
      */
     public static LongStream longStream(scala.collection.IndexedSeq<Long> coll) {
         return StreamSupport.longStream(new StepsLongIndexedSeq(coll, 0, coll.length()), false);
-    }
-
-    /** 
-     * Generates a LongStream that traverses a scala.collection.immutable.HashSet of Longs.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The immutable.HashSet to traverse
-     * @return     A LongStream view of the collection which, by default, executes sequentially.
-     */
-    public static LongStream longStream(scala.collection.immutable.HashSet<Long> coll) {
-        scala.collection.Iterator iter = (scala.collection.Iterator)coll.iterator();
-        return StreamSupport.longStream(new StepsLongImmHashSet(iter, coll.size()), false);
-    }
-
-    /** 
-     * Generates a LongStream that traverses long-valued keys of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A LongStream view of the collection which, by default, executes sequentially.
-     */
-    public static LongStream longStreamKeys(scala.collection.mutable.HashMap<Long, ?> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.longStream(new StepsLongHashTableKey(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a LongStream that traverses long-valued values of a scala.collection.mutable.HashMap.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashMap to traverse
-     * @return     A LongStream view of the collection which, by default, executes sequentially.
-     */
-    public static LongStream longStreamValues(scala.collection.mutable.HashMap<? super Object, Long> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.longStream(new StepsLongDefaultHashTableValue(tbl, 0, tbl.length), false);
-    }
-
-    /** 
-     * Generates a LongStream that traverses a scala.collection.mutable.HashSet of Longs.
-     * <p>
-     * Both sequential and parallel operations will be efficient.
-     *
-     * @param coll The mutable.HashSet to traverse
-     * @return     A LongStream view of the collection which, by default, executes sequentially.
-     */
-    public static LongStream longStream(scala.collection.mutable.HashSet<Long> coll) {
-        Object[] tbl = CollectionInternals.getTable(coll);
-        return StreamSupport.longStream(new StepsLongFlatHashTable(tbl, 0, tbl.length), false);
     }
 
     /** 

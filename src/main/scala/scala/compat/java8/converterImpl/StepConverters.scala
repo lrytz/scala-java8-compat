@@ -31,16 +31,12 @@ trait Priority2StepConverters extends Priority3StepConverters {
 }
 
 trait Priority1StepConverters extends Priority2StepConverters {
-  implicit def richDefaultHashMapCanStep[K, V](underlying: collection.mutable.HashMap[K, V]): RichHashMapCanStep[K, V] =
-    new RichHashMapCanStep[K, V](underlying)
   implicit def richLinkedHashMapCanStep[K, V](underlying: collection.mutable.LinkedHashMap[K, V]): RichLinkedHashMapCanStep[K, V] =
     new RichLinkedHashMapCanStep[K, V](underlying)
   implicit def richArrayCanStep[A](underlying: Array[A]): RichArrayCanStep[A] =
     new RichArrayCanStep[A](underlying)
   implicit def richArraySeqCanStep[A: ClassTag](underlying: collection.mutable.ArraySeq[A]): RichArrayCanStep[A] =
     new RichArrayCanStep[A](StreamConverters.unsafeArrayIfPossible(underlying))
-  implicit def richHashSetCanStep[A](underlying: collection.mutable.HashSet[A]): RichHashSetCanStep[A] =
-    new RichHashSetCanStep[A](underlying)
   implicit def richIteratorCanStep[A](underlying: Iterator[A]): RichIteratorCanStep[A] =
     new RichIteratorCanStep(underlying)
   implicit def richImmHashSetCanStep[A](underlying: collection.immutable.HashSet[A]): RichImmHashSetCanStep[A] =

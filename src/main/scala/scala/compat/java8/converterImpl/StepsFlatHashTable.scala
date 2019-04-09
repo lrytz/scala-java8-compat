@@ -46,19 +46,3 @@ extends StepsLongLikeGapped[StepsLongFlatHashTable](_underlying, _i0, _iN) {
   def nextLong() = if (currentEntry eq null) throwNSEE else { val ans = currentEntry.asInstanceOf[Long]; currentEntry = null; ans }
   protected def semiclone(half: Int) = new StepsLongFlatHashTable(underlying, i0, half)
 }
-
-//////////////////////////
-// Value class adapters //
-//////////////////////////
-
-final class RichHashSetCanStep[T](private val underlying: collection.mutable.HashSet[T]) extends AnyVal with MakesStepper[T, EfficientSubstep] {
-  override def stepper[S <: Stepper[_]](implicit ss: StepperShape[T, S]) = {
-    val tbl = CollectionInternals.getTable(underlying)
-    ((ss.shape: @switch) match {
-      case StepperShape.IntValue    => new StepsIntFlatHashTable   (tbl, 0, tbl.length)
-      case StepperShape.LongValue   => new StepsLongFlatHashTable  (tbl, 0, tbl.length)
-      case StepperShape.DoubleValue => new StepsDoubleFlatHashTable(tbl, 0, tbl.length)
-      case _            => ss.parUnbox(new StepsAnyFlatHashTable[T](tbl, 0, tbl.length))
-    }).asInstanceOf[S with EfficientSubstep]
-  }
-}
