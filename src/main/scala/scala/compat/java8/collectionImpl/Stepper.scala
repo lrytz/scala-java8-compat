@@ -50,6 +50,7 @@ import java.util.Spliterator
   * println(s.hasStep)                      //  Prints `false`
   * }}}
   */
+/*
 trait Stepper[@specialized(Double, Int, Long) A] extends StepperLike[A, Stepper[A]] {
   /** Drains the contents of this stepper into an `Accumulator` or specialized variant thereof as appropriate.
     * This is a terminal operation.
@@ -58,15 +59,18 @@ trait Stepper[@specialized(Double, Int, Long) A] extends StepperLike[A, Stepper[
     */
   def accumulate[Acc <: AccumulatorLike[A, Acc]](implicit accer: scala.compat.java8.converterImpl.AccumulatesFromStepper[A, Acc]) = accer(this)  
 }
-
+*/
 /** An (optional) marker trait that indicates that a `Stepper` can call `substep` with
   * at worst O(log N) time and space complexity, and that the division is likely to
   * be reasonably even.
   */
+/*
 trait EfficientSubstep {}
+*/
 
 /** Provides functionality for Stepper while keeping track of a more precise type of the collection.
   */
+/*
 trait StepperLike[@specialized(Double, Int, Long) A, +CC] { self: CC =>
   /** Characteristics are bit flags that indicate runtime characteristics of this Stepper.
     *
@@ -639,3 +643,4 @@ object Stepper {
     def substep(): DoubleStepper = new UnboxingFloatStepper(st.substep())
   }
 }
+*/

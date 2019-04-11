@@ -31,17 +31,4 @@ trait Priority1AccumulatorConverters extends Priority2AccumulatorConverters {
   implicit def accumulateDoubleArray(underlying: Array[Double]) = new AccumulateDoubleArray(underlying)
   implicit def accumulateIntArray(underlying: Array[Int]) = new AccumulateIntArray(underlying)
   implicit def accumulateLongArray(underlying: Array[Long]) = new AccumulateLongArray(underlying)
-
-  implicit def accumulateAnyStepper[A]: AccumulatesFromStepper[A, Accumulator[A]] =
-    PrivateAccumulatorConverters.genericAccumulateAnyStepper.asInstanceOf[AccumulatesFromStepper[A, Accumulator[A]]]
-}
-
-private[java8] object PrivateAccumulatorConverters {
-  val genericAccumulateAnyStepper: AccumulatesFromStepper[Any, Accumulator[Any]] = new AccumulatesFromStepper[Any, Accumulator[Any]] {
-    def apply(stepper: Stepper[Any]) = {
-      val a = new Accumulator[Any]
-      while (stepper.hasStep) a += stepper.nextStep()
-      a
-    }
-  }
 }
